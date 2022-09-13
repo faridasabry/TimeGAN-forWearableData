@@ -1,4 +1,4 @@
-# Updated TimeGAN using tensorflow2 for testing with wearable data
+# Updated TimeGAN to use tensorflow2 for testing with wearable data
 
 Main Repository: Codebase for "Time-series Generative Adversarial Networks (TimeGAN)-  (NeurIPS), 2019.
 Authors: Jinsung Yoon, Daniel Jarrett, Mihaela van der Schaar
