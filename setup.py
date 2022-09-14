@@ -23,7 +23,7 @@ setup(
     license="MIT",
     install_requires=read_requirements(),
     url="https://github.com/faridasabry/TimeGAN-forWearableData",
-    #package_dir={"": "src"},
-    #packages=find_packages(where="src"),
-    #entry_points={'console_scripts': console_scripts},
+    package_dir={"": "src"},
+    packages=find_packages(where="src"),
+    entry_points={'console_scripts': console_scripts},
 )
