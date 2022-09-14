@@ -3,5 +3,5 @@ tensorflow
 tqdm
 argparse
 pandas
-scikit-learn
+sklearn
 matplotlib
