@@ -1,7 +1,3 @@
 numpy
 tensorflow
-tqdm
-argparse
-pandas
 sklearn
-matplotlib
