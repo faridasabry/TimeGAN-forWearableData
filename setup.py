@@ -15,7 +15,7 @@ console_scripts = [
 ]
 
 setup(
-    name='attacksplitnn',
+    name='timeganwearable',
     version='0.0.0',
     description='TimeGAN for wearable data',
     author='faridasabry',
