@@ -1,4 +1,4 @@
-# Updated TimeGAN to use tensorflow2 for testing with wearable data
+## Updated TimeGAN to use tensorflow2 for testing with wearable data
 
 Main Repository: Codebase for "Time-series Generative Adversarial Networks (TimeGAN)-  (NeurIPS), 2019.
 Authors: Jinsung Yoon, Daniel Jarrett, Mihaela van der Schaar
@@ -12,4 +12,4 @@ This directory contains testing of TimeGAN for synthetic time-series data genera
 To run the pipeline for training and evaluation on TimeGAN framwork, simply run 
 python3 -m main_timegan.py or see jupyter-notebook tutorial of TimeGAN in tutorial_timegan.ipynb.
 
-# Further code explanation for TimeGAN can be followed in details on the main TimeGAN repository
+### Further code explanation for TimeGAN can be followed in details on the main TimeGAN repository
