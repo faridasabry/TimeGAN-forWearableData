@@ -5,10 +5,11 @@ Reference: Jinsung Yoon, Daniel Jarrett, Mihaela van der Schaar,
 Neural Information Processing Systems (NeurIPS), 2019.
 
 Paper link: https://papers.nips.cc/paper/8789-time-series-generative-adversarial-networks
-
-Last updated Date: April 24th 2020
 Code author: Jinsung Yoon (jsyoon0823@gmail.com)
 
+
+Last updated Date: September 28th 2022
+Updated by: Farida Sabry
 -----------------------------
 
 data_loading.py
@@ -22,7 +23,7 @@ data_loading.py
 
 ## Necessary Packages
 import numpy as np
-
+#from matplotlib.dates import strpdate2num
 
 def MinMaxScaler(data):
   """Min Max normalizer.
@@ -77,11 +78,11 @@ def sine_data_generation (no, seq_len, dim):
   return data
     
 
-def real_data_loading (data_name, seq_len):
+def real_data_loading (data_name, seq_len, path=None):
   """Load and preprocess real-world datasets.
   
   Args:
-    - data_name: stock or energy
+    - data_name: stock or energy or fasting
     - seq_len: sequence length
     
   Returns:
@@ -94,12 +95,27 @@ def real_data_loading (data_name, seq_len):
   elif data_name == 'energy':
     ori_data = np.loadtxt('data/energy_data.csv', delimiter = ",",skiprows = 1)
   elif data_name == 'fasting':
-    ori_data = np.loadtxt('data/fasting_data.csv', delimiter = ",",skiprows = 1)
+    print("Load Fasting data:")
+    if(path is None):
+    	ori_data = np.loadtxt('data/fasting_data.csv', delimiter = ",",skiprows = 1)    
+    	#print(ori_data)
+    else:
+        ori_data = np.loadtxt(path, delimiter = ",",skiprows = 1)
+  elif data_name == 'nonfasting':
+    print("Load nonfasting data:")
+    if(path is None):
+    	ori_data = np.loadtxt('data/nonfasting_data.csv', delimiter = ",",skiprows = 1)    
+    else:
+        ori_data = np.loadtxt(path, delimiter = ",",skiprows = 1)
+    #features=['Timestamp_CAL','PPG_A13_CAL','Temperature_BMP280_CAL','GSR_Skin_Resistance_CAL','GSR_Skin_Conductance_CAL','Pressure_BMP280_CAL','Accel_LN_mag','Mag_mag','Gyro_mag','cumAccel','cumMag','cumGyro','sincelastDrinking']
+#    dtype_val= {'names': features,
+#               'formats': [np.unicode_, np.float_, np.float_, np.float_,np.float_,np.float_, np.float_, np.float_,np.float_,np.float_, np.float_, np.float_,np.float_]}
+ #   ori_data = np.loadtxt('data/fasting_data.csv', dtype=dtype_val,converters={0:strpdate2num('%Y-%m-%d %h:%M:%S')}, delimiter = ",",skiprows = 1)
     
   # Flip the data to make chronological data
   ori_data = ori_data[::-1]
   # Normalize the data
-  ori_data = MinMaxScaler(ori_data)
+  #ori_data = MinMaxScaler(ori_data)
     
   # Preprocess the dataset
   temp_data = []    
@@ -113,5 +129,8 @@ def real_data_loading (data_name, seq_len):
   data = []
   for i in range(len(temp_data)):
     data.append(temp_data[idx[i]])
-    
+  
+  
   return data
+
+
