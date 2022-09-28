@@ -5,11 +5,10 @@ Reference: Jinsung Yoon, Daniel Jarrett, Mihaela van der Schaar,
 Neural Information Processing Systems (NeurIPS), 2019.
 
 Paper link: https://papers.nips.cc/paper/8789-time-series-generative-adversarial-networks
-
-
 Code author: Jinsung Yoon (jsyoon0823@gmail.com)
-Updated by: Farida Sabry
 
+Last updated Date: September 28th 2022
+Updated by: Farida Sabry
 -----------------------------
 
 timegan.py
@@ -23,7 +22,7 @@ import numpy as np
 from utils import extract_time, rnn_cell, random_generator, batch_generator
 import pickle
 
-def timegan (ori_data, parameters):
+def timegan (ori_data, parameters, samplename=None):
   """TimeGAN function.
   
   Use original data as training set to generater synthetic data (time-series)
@@ -39,6 +38,7 @@ def timegan (ori_data, parameters):
   # Initialization on the Graph
   tf.compat.v1.reset_default_graph()
 
+  #print(ori_data)
   # Basic Parameters
   no, seq_len, dim = np.asarray(ori_data).shape
     
@@ -66,7 +66,9 @@ def timegan (ori_data, parameters):
   
   # Normalization
   ori_data, min_val, max_val = MinMaxScaler(ori_data)
-              
+  print(min_val)
+  print(max_val)
+            
   ## Build a RNN networks          
   
   # Network Parameters
@@ -295,10 +297,12 @@ def timegan (ori_data, parameters):
     
   ## Synthetic data generation
   Z_mb = random_generator(no, z_dim, ori_time, max_seq_len)
-  with open('Zmb.pickle', 'wb') as f:
-      pickle.dump(Z_mb, f, pickle.HIGHEST_PROTOCOL)
-  generated_data_curr = sess.run(X_hat, feed_dict={Z: Z_mb, X: ori_data, T: ori_time})    
-  with open('generatedData.pickle', 'wb') as f:
+  #with open('Zmb.pickle', 'wb') as f:
+  #    pickle.dump(Z_mb, f, pickle.HIGHEST_PROTOCOL)
+  generated_data_curr = sess.run(X_hat, feed_dict={Z: Z_mb, X: ori_data, T: ori_time})   
+  if(samplename is None):
+      samplename='generatedData' 
+  with open(samplename+'.pickle', 'wb') as f:
       pickle.dump(generated_data_curr, f, pickle.HIGHEST_PROTOCOL)  
   generated_data = list()
     
@@ -309,6 +313,6 @@ def timegan (ori_data, parameters):
   # Renormalization
   generated_data = generated_data * max_val
   generated_data = generated_data + min_val
-  with open('generatedData_renormalized.pickle', 'wb') as f:
+  with open(samplename+'renormalized.pickle', 'wb') as f:
   	pickle.dump(generated_data, f, pickle.HIGHEST_PROTOCOL)  
   return generated_data
